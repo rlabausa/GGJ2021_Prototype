@@ -37,14 +37,4 @@ public class GameGrid : MonoBehaviour
         }
     }
 
-    public void DrawGameGrid()
-    {
-        foreach (KeyValuePair<Vector3, Tile> kvp in this.tiles)
-        {
-            //Vector3 tilePosition = kvp.Key;
-            //Tile tile = kvp.Value;
-            //Instantiate(tilePrefab, tilePosition, Quaternion.identity);
-            //tile.transform.parent = gameObject.transform;
-        }
-    }
 }

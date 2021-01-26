@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour
     {
         gameGrid = GameObject.FindObjectOfType<GameGrid>();
         gameGrid.BuildGameGrid();
-        gameGrid.DrawGameGrid();
-
     }
 
     // Update is called once per frame
