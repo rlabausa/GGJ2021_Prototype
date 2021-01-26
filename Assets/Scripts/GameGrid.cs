@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class GameGrid : MonoBehaviour
 {
-
     public int width;
     public int height;
     public Dictionary<Vector3, Tile> tiles;
     public float scalar;
+    public GameObject tilePrefab;
 
-    public void BuildGameGrid(int w, int h, float s)
+    public void BuildGameGrid()
     {
-        this.width = w;
-        this.height = h;
-        this.tiles = new Dictionary<Vector3, Tile>();
-        this.scalar = s;
+        tiles = new Dictionary<Vector3, Tile>();
 
         int index = 0;
         for (int x = 0; x < this.height; x++)
@@ -24,25 +21,30 @@ public class GameGrid : MonoBehaviour
             {
                 Vector3 tilePosition = scalar * new Vector3(x, 0, z);
                 string tileName = string.Format("tile_{0}", index);
+
+                // Create tile
+                //TODO: Determine if there is a better way to create the Tile object
                 Tile tile = gameObject.AddComponent<Tile>();
                 tile.BuildTile(tileName, tilePosition);
                 tiles.Add(tilePosition, tile);
+
+                // Move instantiated prefabs under GameGrid object in scene hierarchy
+                GameObject tilePrefabGO = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
+                tilePrefabGO.transform.parent = gameObject.transform;
 
                 index++;
             }
         }
     }
 
-    public void DrawGameGrid(GameObject tilePrefab)
+    public void DrawGameGrid()
     {
         foreach (KeyValuePair<Vector3, Tile> kvp in this.tiles)
         {
-            Debug.Log(string.Format("Key: {0} Value: {1}", kvp.Key, kvp.Value));
-
-            Vector3 tilePosition = kvp.Key;
-            Tile tile = kvp.Value;
-
-            Instantiate(tilePrefab, tilePosition, Quaternion.identity);
+            //Vector3 tilePosition = kvp.Key;
+            //Tile tile = kvp.Value;
+            //Instantiate(tilePrefab, tilePosition, Quaternion.identity);
+            //tile.transform.parent = gameObject.transform;
         }
     }
 }
